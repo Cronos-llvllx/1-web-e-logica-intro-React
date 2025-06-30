@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FeedbackMessage from './FeedbackMessage'; // Importamos nuestros componentes
+import FeedbackMessage from './FeedbackMessage';
 import GuessForm from './GuessForm';
 
     // Función para generar un número aleatorio entre 1 y 100

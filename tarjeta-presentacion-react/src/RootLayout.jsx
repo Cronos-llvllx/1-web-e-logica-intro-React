@@ -1,23 +1,33 @@
-// src/RootLayout.jsx
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import { useAuth } from './useAuth';
 
-// Este es el mismo componente, pero ahora en su propio archivo.
-function RootLayout() {
+    function RootLayout() {
+    const { user, logout } = useAuth(); // Obtenemos el usuario y la función de logout
+
     return (
         <>
-        <nav style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+        <nav style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'space-between' }}>
+            <div>
             <Link to="/" style={{ marginRight: '15px' }}>Inicio</Link>
-            <Link to="/appointments" style={{ marginRight: '15px' }}>Citas</Link>
-            <Link to="/workshops">Talleres Anteriores</Link>
+            <Link to="/dashboard" style={{ marginRight: '15px' }}>Dashboard (Protegido)</Link>
+            </div>
+            <div>
+            {user ? (
+                <>
+                <span style={{ marginRight: '15px' }}>Hola, {user.name}</span>
+                <button onClick={logout}>Cerrar Sesión</button>
+                </>
+            ) : (
+                <Link to="/login">Iniciar Sesión</Link>
+            )}
+            </div>
         </nav>
         <main style={{ padding: '0 20px' }}>
-            {/* Outlet renderiza el componente de la ruta activa */}
             <Outlet />
         </main>
         </>
     );
     }
 
-// ¡Este paso es crucial! Exportamos el componente para que otros archivos puedan usarlo.
 export default RootLayout;
